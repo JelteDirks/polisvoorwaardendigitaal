@@ -10,14 +10,21 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 public class PolisvoorwaardenRestController {
 
     @RequestMapping(value = "/api/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public String upload(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("key") String key,
+            @RequestParam("title") String title,
+            @RequestParam("code") String code) {
 
         File convertFile = new File("/var/tmp/polisvoorwaarden/" + file.getOriginalFilename());
+
+        System.out.println(key + "-" + title + "-" + code + " -" + file.getOriginalFilename());
 
         try {
             convertFile.createNewFile();
@@ -36,7 +43,14 @@ public class PolisvoorwaardenRestController {
             e.printStackTrace();
         }
 
-        return "Uploaded";
+        String sha = "";
+        try {
+            sha = Utils.sha256Encode(file.getBytes());
+        } catch (IOException | NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return sha;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
