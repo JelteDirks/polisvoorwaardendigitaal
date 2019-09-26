@@ -25,13 +25,4 @@ public class Utils {
 
         return bytesToHexString(hashAsBytes);
     }
-
-    public static String sha256PDFEncryption(File file) throws IOException {
-
-        if (!file.canRead()) {
-            throw new IOException("can not read file: " + file.getAbsolutePath());
-        }
-
-        return "";
-    }
 }
