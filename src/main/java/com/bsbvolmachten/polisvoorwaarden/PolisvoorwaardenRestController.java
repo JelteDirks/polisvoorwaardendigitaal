@@ -18,7 +18,7 @@ public class PolisvoorwaardenRestController {
     @RequestMapping(value = "/api/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String upload(@RequestParam("file") MultipartFile file) {
 
-        File convertFile = new File("/var/tmp" + file.getOriginalFilename());
+        File convertFile = new File("/var/tmp/" + file.getOriginalFilename());
 
         try {
             convertFile.createNewFile();
