@@ -1,5 +1,8 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -23,5 +26,14 @@ public class Utils {
         byte[] hashAsBytes = messageDigest.digest(bytes);
 
         return bytesToHexString(hashAsBytes);
+    }
+
+    public static String sha256PDFEncryption(File file) throws IOException {
+
+        if (!file.canRead()) {
+            throw new IOException("can not read file: " + file.getAbsolutePath());
+        }
+
+        return "";
     }
 }

@@ -27,4 +27,10 @@ public class UtilsTests {
 
         assertEquals(hex, Utils.bytesToHexString(bytes));
     }
+
+    @Test
+    public void sha256PDFEncryptionTest() {
+        String filePath = "./src/test/resources/Model CF2019 - Combi Autopolis.pdf";
+
+    }
 }
