@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 @RestController
 public class PolisvoorwaardenRestController {
@@ -18,7 +19,7 @@ public class PolisvoorwaardenRestController {
     @RequestMapping(value = "/api/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String upload(@RequestParam("file") MultipartFile file) {
 
-        File convertFile = new File("/var/tmp/" + file.getOriginalFilename());
+        File convertFile = new File("/var/tmp/polisvoorwaarden/" + file.getOriginalFilename());
 
         try {
             convertFile.createNewFile();
