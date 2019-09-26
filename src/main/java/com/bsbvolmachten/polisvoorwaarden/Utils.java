@@ -1,8 +1,6 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
