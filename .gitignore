@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Windows
+.DS_Store
+*/**/*.DS_store
