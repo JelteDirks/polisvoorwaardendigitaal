@@ -57,6 +57,6 @@ public class Block {
             e.printStackTrace();
         }
 
-        return prevBlockHash;
+        return blockHash;
     }
 }
