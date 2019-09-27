@@ -2,6 +2,7 @@ package com.bsbvolmachten.polisvoorwaarden.blockchain;
 
 import com.bsbvolmachten.polisvoorwaarden.Utils;
 
+import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 
 public class Block {
@@ -13,7 +14,7 @@ public class Block {
     private int index;
 
     private String documentHash;
-    private String documentVersion;
+    private int documentVersion;
     private String documentCode;
     private String documentTitle;
     private String companyCode;
@@ -22,7 +23,7 @@ public class Block {
                  long timestamp,
                  int index,
                  String documentHash,
-                 String documentVersion,
+                 int documentVersion,
                  String documentCode,
                  String documentTitle,
                  String companyCode
