@@ -1,7 +1,5 @@
 package com.bsbvolmachten.polisvoorwaarden.blockchain;
 
-import java.util.Date;
-
 public class Block {
 
     private String blockHash;
