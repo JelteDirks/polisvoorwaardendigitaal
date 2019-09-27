@@ -8,10 +8,10 @@ class Utils {
 
     static String bytesToHexString(byte[] bytes) {
 
-        StringBuffer builder = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < bytes.length; i++) {
-            builder.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+        for (byte aByte : bytes) {
+            builder.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
         }
 
         return builder.toString();
