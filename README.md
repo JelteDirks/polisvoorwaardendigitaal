@@ -10,3 +10,11 @@
 - document code
 - company code
 - document title
+- document version
+
+
+### Document Versioning
+
+- latest version
+- document code
+- company code
