@@ -4,9 +4,9 @@ import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class Utils {
+class Utils {
 
-    public static String bytesToHexString(byte[] bytes) {
+    static String bytesToHexString(byte[] bytes) {
 
         StringBuffer builder = new StringBuffer();
 
@@ -17,7 +17,7 @@ public class Utils {
         return builder.toString();
     }
 
-    public static String sha256Encode(byte[] bytes) throws NoSuchAlgorithmException {
+    static String sha256Encode(byte[] bytes) throws NoSuchAlgorithmException {
 
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
 
