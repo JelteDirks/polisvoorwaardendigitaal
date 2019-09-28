@@ -1,4 +1,4 @@
-package com.bsbvolmachten.polisvoorwaarden.blockchain;
+package com.bsbvolmachten.polisvoorwaarden;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
