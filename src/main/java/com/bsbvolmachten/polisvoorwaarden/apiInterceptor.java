@@ -17,7 +17,7 @@ public class apiInterceptor implements HandlerInterceptor {
             Object handler
     ) throws Exception {
 
-        System.out.println("pre handle");
+        System.out.println("Received " + request.getMethod() + " " + request.getRequestURI());
 
         return true;
     }
@@ -30,7 +30,7 @@ public class apiInterceptor implements HandlerInterceptor {
             ModelAndView modelAndView
     ) throws Exception {
 
-        System.out.println("post handle");
+        System.out.println("Handled " + request.getMethod() + " " + request.getRequestURI());
 
     }
 
@@ -42,7 +42,7 @@ public class apiInterceptor implements HandlerInterceptor {
             Exception exception
     ) throws Exception {
 
-        System.out.println("after completion");
+        System.out.println("Complete request " + request.getMethod() + " " + request.getRequestURI());
 
     }
 }
