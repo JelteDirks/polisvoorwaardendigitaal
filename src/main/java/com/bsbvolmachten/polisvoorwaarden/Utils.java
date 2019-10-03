@@ -25,4 +25,17 @@ public class Utils {
 
         return bytesToHexString(hashAsBytes);
     }
+
+    public static String getSecret(File secretFile) throws IOException {
+        StringBuilder secret = new StringBuilder();
+        FileReader reader = new FileReader(secretFile);
+        BufferedReader bReader = new BufferedReader(reader);
+
+        String s;
+        while ((s = bReader.readLine()) != null) {
+            secret.append(s);
+        }
+
+        return secret.toString();
+    }
 }
