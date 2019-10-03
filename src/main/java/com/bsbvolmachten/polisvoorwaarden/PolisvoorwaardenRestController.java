@@ -1,5 +1,8 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -7,20 +10,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
+import java.security.Key;
+import java.security.KeyException;
+import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 @RestController
 public class PolisvoorwaardenRestController {
+
+    private String secret;
+
+    public PolisvoorwaardenRestController() throws IOException {
+        File secretFile = new File("./src/main/resources/secret.txt");
+        secret = Utils.getSecret(secretFile);
+    }
 
     @RequestMapping(value = "/api/upload", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String upload(
             @RequestParam("file") MultipartFile file,
             @RequestParam("key") String key,
             @RequestParam("title") String title,
-            @RequestParam("code") String code) {
+            @RequestParam("code") String code
+    ) {
 
         File convertFile = new File("/var/tmp/polisvoorwaarden/" + file.getOriginalFilename());
 
@@ -58,4 +72,21 @@ public class PolisvoorwaardenRestController {
         return "Home";
     }
 
+    @RequestMapping(value = "/api/generate_token", method = RequestMethod.POST)
+    public String generateToken(
+            @RequestParam("issuer") String issuer,
+            @RequestParam("expires") long expires,
+            @RequestParam("company") String company
+    ) {
+
+        Key key = new SecretKeySpec(secret.getBytes(), 0, secret.getBytes().length, "HmacSHA512");
+        String jws = Jwts.builder()
+                .setIssuer(issuer)
+                .setExpiration(new Date(expires))
+                .setSubject(company)
+                .setIssuedAt(new Date())
+                .signWith(key).compact();
+
+        return jws;
+    }
 }
