@@ -62,6 +62,11 @@ public class UtilsTests {
                         "73367638792F423F4528482B4D6251655468576D5A7134743777217A24432646294A404E635266556A" +
                         "586E3272357538782F413F442A472D4B6150645367566B5970337336763979244226452948404D6251" +
                         "655468576D5A7134743777217A25432A462D4A614E645266556A58",
-                Utils.getSecret(new File("./src/test/resources/secret.txt")));
+                Utils.getSecret(new File("./src/test/resources/testSecret.txt")));
+    }
+
+    @Test
+    public void validateJWSTest() {
+        String jws = "";
     }
 }
