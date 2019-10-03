@@ -26,3 +26,9 @@ Use in memory database in combination with disk memory database as backup.
 In memory database has volatile data storage which is useful for fast operations, but data can be lost easily.
 
 Saving documents: office_code/hash/title.pdf
+
+## Requests
+
+#### /api/upload
+
+- 
