@@ -1,5 +1,6 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import io.jsonwebtoken.Jws;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -69,8 +70,10 @@ public class UtilsTests {
     public void validateJWSTest() throws IOException {
         String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
 
-        String jws = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.exzei3YCERPZ204FgXKjmh4QHpI3bzDBVIkqjWyLcbw";
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
 
-        Utils.validateJWS(jws, secret);
+        Jws jws = Utils.validateJWS(stringJWS, secret);
+
+        assertEquals("{sub=test subject, name=jeake, iat=1516239022, iss=jeltedirks}", jws.getBody().toString());
     }
 }
