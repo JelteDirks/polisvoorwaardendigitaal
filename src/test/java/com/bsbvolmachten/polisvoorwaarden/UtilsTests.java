@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -75,5 +76,9 @@ public class UtilsTests {
         Jws jws = Utils.validateJWS(stringJWS, secret);
 
         assertEquals("{sub=test subject, name=jeake, iat=1516239022, iss=jeltedirks}", jws.getBody().toString());
+
+        jws = Utils.validateJWS(stringJWS + "1", secret);
+
+        assertNull(jws);
     }
 }
