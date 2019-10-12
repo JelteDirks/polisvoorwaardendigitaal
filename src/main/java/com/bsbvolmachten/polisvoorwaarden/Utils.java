@@ -2,7 +2,9 @@ package com.bsbvolmachten.polisvoorwaarden;
 
 import io.jsonwebtoken.*;
 
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.security.Key;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -41,21 +43,24 @@ public class Utils {
         return secret.toString();
     }
 
-    public static boolean validateJWS(String jwsString, String secret) {
+    public static io.jsonwebtoken.Jws validateJWS(String jwsString, String secret) {
 
         Jws<Claims> jws;
 
+        Key key = new SecretKeySpec(secret.getBytes(), 0, secret.getBytes().length, "HmacSHA512");
+
+
         try {
             jws = Jwts.parser()
-                    .setSigningKey(secret)
+                    .setSigningKey(key)
                     .parseClaimsJws(jwsString);
 
-            System.out.println(jws);
+            return jws;
 
         } catch (JwtException jwtEx) {
             jwtEx.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 }

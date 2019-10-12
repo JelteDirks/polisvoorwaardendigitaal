@@ -1,8 +1,6 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.crypto.spec.SecretKeySpec;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Key;
-import java.security.KeyException;
-import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
@@ -75,16 +73,20 @@ public class PolisvoorwaardenRestController {
     @RequestMapping(value = "/api/generate_token", method = RequestMethod.POST)
     public String generateToken(
             @RequestParam("issuer") String issuer,
-            @RequestParam("expires") long expires,
-            @RequestParam("company") String company
+            @RequestParam("expires") String expires,
+            @RequestParam("company") String company,
+            @RequestParam("issuedAt") String issuedAt
     ) {
+
+        long exp = Long.parseLong(expires);
+        long iat = Long.parseLong(issuedAt);
 
         Key key = new SecretKeySpec(secret.getBytes(), 0, secret.getBytes().length, "HmacSHA512");
         String jws = Jwts.builder()
                 .setIssuer(issuer)
-                .setExpiration(new Date(expires))
+                .setExpiration(new Date(exp))
                 .setSubject(company)
-                .setIssuedAt(new Date())
+                .setIssuedAt(new Date(iat))
                 .signWith(key).compact();
 
         return jws;
