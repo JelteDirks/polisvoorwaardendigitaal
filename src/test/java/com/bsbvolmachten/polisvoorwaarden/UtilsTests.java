@@ -70,14 +70,17 @@ public class UtilsTests {
     @Test
     public void validateJWSTest() throws IOException {
         String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
-
         String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
-
         Jws jws = Utils.validateJWS(stringJWS, secret);
 
         assertEquals("{sub=test subject, name=jeake, iat=1516239022, iss=jeltedirks}", jws.getBody().toString());
+    }
 
-        jws = Utils.validateJWS(stringJWS + "1", secret);
+    @Test
+    public void validateJWSNullTest() throws IOException {
+        String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
+        Jws jws = Utils.validateJWS(stringJWS + "1", secret);
 
         assertNull(jws);
     }
