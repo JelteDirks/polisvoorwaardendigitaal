@@ -1,5 +1,6 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import io.jsonwebtoken.Jws;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,6 +14,7 @@ import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -68,9 +70,27 @@ public class UtilsTests {
     @Test
     public void validateJWSTest() throws IOException {
         String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
+        Jws jws = Utils.validateJWS(stringJWS, secret);
 
-        String jws = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.exzei3YCERPZ204FgXKjmh4QHpI3bzDBVIkqjWyLcbw";
+        assertEquals("{sub=test subject, name=jeake, iat=1516239022, iss=jeltedirks}", jws.getBody().toString());
+    }
 
-        Utils.validateJWS(jws, secret);
+    @Test
+    public void validateJWSNullTest() throws IOException {
+        String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
+        Jws jws = Utils.validateJWS(stringJWS + "1", secret);
+
+        assertNull(jws);
+    }
+
+    @Test
+    public void validateJWSBadSecretTest() throws IOException {
+        String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
+        Jws jws = Utils.validateJWS(stringJWS, secret+"1");
+
+        assertNull(jws);
     }
 }
