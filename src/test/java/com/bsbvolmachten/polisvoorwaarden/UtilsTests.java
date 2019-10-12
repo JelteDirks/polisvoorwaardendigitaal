@@ -1,5 +1,6 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import jdk.jshell.execution.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,7 +67,11 @@ public class UtilsTests {
     }
 
     @Test
-    public void validateJWSTest() {
-        String jws = "";
+    public void validateJWSTest() throws IOException {
+        String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+
+        String jws = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.exzei3YCERPZ204FgXKjmh4QHpI3bzDBVIkqjWyLcbw";
+
+        Utils.validateJWS(jws, secret);
     }
 }

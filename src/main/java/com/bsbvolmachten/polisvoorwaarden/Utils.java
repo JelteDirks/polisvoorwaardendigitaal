@@ -1,5 +1,7 @@
 package com.bsbvolmachten.polisvoorwaarden;
 
+import io.jsonwebtoken.*;
+
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -37,5 +39,23 @@ public class Utils {
         }
 
         return secret.toString();
+    }
+
+    public static boolean validateJWS(String jwsString, String secret) {
+
+        Jws<Claims> jws;
+
+        try {
+            jws = Jwts.parser()
+                    .setSigningKey(secret)
+                    .parseClaimsJws(jwsString);
+
+            System.out.println(jws);
+
+        } catch (JwtException jwtEx) {
+            jwtEx.printStackTrace();
+        }
+
+        return false;
     }
 }
