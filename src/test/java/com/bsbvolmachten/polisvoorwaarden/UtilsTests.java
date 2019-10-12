@@ -84,4 +84,13 @@ public class UtilsTests {
 
         assertNull(jws);
     }
+
+    @Test
+    public void validateJWSBadSecretTest() throws IOException {
+        String secret = Utils.getSecret(new File("./src/test/resources/testSecret.txt"));
+        String stringJWS = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0IHN1YmplY3QiLCJuYW1lIjoiamVha2UiLCJpYXQiOjE1MTYyMzkwMjIsImlzcyI6ImplbHRlZGlya3MifQ.X55UG59_kDOjG5AL2a7LHuBUI8mSImliPr_8n-Qkpyep3xlHPtSuD4JI-brfIJiAuis9Bns-PdWJRpzGZtW-_Q";
+        Jws jws = Utils.validateJWS(stringJWS, secret+"1");
+
+        assertNull(jws);
+    }
 }
